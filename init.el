@@ -21,7 +21,6 @@
 (add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/noctilux"))
 (add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/moe"))
 
-;(load (format "%s/%s" "/Users/toadwarrior/.emacs.d" "packages.el"))
 (require 'init-packages)
 
 ;; Constants / Variables
