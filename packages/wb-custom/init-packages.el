@@ -19,6 +19,7 @@
     company
     company-jedi
     dash
+    darktooth-theme
     deferred
     epc
     fringe-helper
@@ -37,6 +38,7 @@
     js2-mode
     magit
     markdown-mode
+    moe-theme
     nyan-mode
     popup
     powerline
@@ -47,6 +49,8 @@
     rust-mode
     s
     sr-speedbar
+    tango-plus-theme
+    tangotango-theme
     transpose-frame
     undo-tree
     web-mode
