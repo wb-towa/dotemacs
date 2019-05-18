@@ -1,0 +1,7 @@
+*.pyc
+.DS_Store
+backup/
+auto-save-list/
+autosave/
+*.elc
+elpa/
