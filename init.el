@@ -17,9 +17,6 @@
 ;; add themes to path
 (add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes"))
 
-(add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/emacs-color-theme-solarized"))
-(add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/noctilux"))
-
 (require 'init-packages)
 
 ;; Constants / Variables
@@ -793,7 +790,6 @@ Emacs buffers are those whose name starts with *."
 
 ;; Enabled for all programming related modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
 
 ;;
 ;; Web-Mode
