@@ -19,7 +19,6 @@
 
 (add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/emacs-color-theme-solarized"))
 (add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/noctilux"))
-(add-to-list 'custom-theme-load-path (format "%s/%s" user-emacs-directory "themes/moe"))
 
 (require 'init-packages)
 
@@ -56,14 +55,27 @@
     (*on-mac* "/usr/local/bin/aspell")))
  '(package-selected-packages
    (quote
-    (git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi ivy-hydra htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
+    (git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-scrollbar-bg ((t (:background "#ffffffffffff"))))
+ '(company-scrollbar-fg ((t (:background "#ffffffffffff"))))
+ '(company-tooltip ((t (:inherit default :background "#ffffffffffff"))))
+ '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
+ '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
  '(mode-line ((t (:foreground "#f9f9f9" :background "#4272b4" :box nil))))
- '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#4272b4" :box nil)))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#4272b4" :box nil))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "gold"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
 
 ;; On OSX it won't find flake8 otherwise
 (if *on-mac*
@@ -153,6 +165,15 @@
     (show-paren-mode 1)
 )
 (add-hook 'prog-mode-hook 'matching-parens)
+
+(mapc (lambda (ext)
+        (push ext completion-ignored-extensions))
+      '(
+        ".exe" ".obj" ".class" ".dll" ".pyc" ".rbc" ".bak" ".so" ".swp" ".jar" ".desktop"
+        ".doc" ".xls" ".odt" ".ods" ".ots" ".xlsx"
+        ".zip" ".rar" ".tar.gz" ".tar"
+        ".mp3" ".wav" ".mp4" ".mpeg" ".wmv" ".wma" ".m3u" ".flac" ".mid" ".m4a" "aiff" ".mp2" ".aac" ".ogg" ".mov"
+        ))
 
 ;; Font
 (if *on-mac*
@@ -570,61 +591,6 @@ Emacs buffers are those whose name starts with *."
 (my-powerline-theme)
 
 
-;;
-;; Ido
-;;
-
-;; http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/
-
-(mapc (lambda (ext)
-        (push ext completion-ignored-extensions))
-      '(
-        ".exe" ".obj" ".class" ".dll" ".pyc" ".rbc" ".bak" ".so" ".swp" ".jar" ".desktop"
-        ".doc" ".xls" ".odt" ".ods" ".ots" ".xlsx"
-        ".zip" ".rar" ".tar.gz" ".tar"
-        ".mp3" ".wav" ".mp4" ".mpeg" ".wmv" ".wma" ".m3u" ".flac" ".mid" ".m4a" "aiff" ".mp2" ".aac" ".ogg" ".mov"
-        ))
-
-(eval-after-load "ido"
-  '(progn
-     (setq ido-ignore-buffers (append
-                               ido-ignore-buffers
-                               '(
-                                 "\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-                                 "^\*compilation" "^\*GTAGS" "^session\.*" "^\*" "^\*SPEEDBAR"
-                                 )))
-     (setq ido-ignore-directories (append
-                                   ido-ignore-directories
-                                   '(
-                                     "\\.git/"
-                                     "\\.svn/"
-                                     "\\.hg/"
-                                     "\\.idea/"
-                                     "_region_"
-                                     )))
-     (setq ido-ignore-files (append
-                             ido-ignore-files
-                             '(
-                               "^auto/$"
-                               "_region_"
-                               )))
-    ))
-
-(setq ido-enable-prefix nil                     ; match arbitrary substring
-      ido-enable-flex-matching t                ; fall back to matching sequence of characters
-      ido-case-fold t                           ; ignore case
-      ido-auto-merge-work-directories-length -1 ; no auto merging work dirs
-      ido-enable-last-directory-history t       ; remember last used dirs
-      ido-create-new-buffer 'always             ; always create new buffer if no match
-      ido-use-filename-at-point nil             ; don't look at text at point as a filename
-      ido-use-url-at-point nil                  ; don't use url at point
-      ido-max-prospects 10                      ; don't overload minibuffer
-      ido-ignore-extensions t                   ; use completion-ignored-extensions
-      ido-save-directory-list-file (format "%s/%s" user-emacs-directory "autosave/ido.last"))
-
-(setq ido-everywhere t)
-(ido-mode 1)
-
 
 ;;
 ;; Flycheck
@@ -828,22 +794,6 @@ Emacs buffers are those whose name starts with *."
 ;; Enabled for all programming related modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; remove  ugly default rainbow-delimiters colors
-;; these still need tweaking as they're less than ideal too
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:foreground "dark orange"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "deep pink"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "chartreuse"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "deep sky blue"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "gold"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "orchid"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "spring green"))))
- '(rainbow-delimiters-depth-8-face ((t (:foreground "sienna1")))))
-
 
 ;;
 ;; Web-Mode
@@ -936,6 +886,9 @@ Emacs buffers are those whose name starts with *."
 ;; and see what happens
 (setq yas-indent-line 'fixed)
 
+(setq yas-snippet-dirs
+      '((format "%s/%s" user-emacs-directory "snippets")
+        ))
 ;; Jump to end of snippet definition
 (define-key yas-keymap (kbd "<return>") 'yas-exit-all-snippets)
 
@@ -967,9 +920,6 @@ Emacs buffers are those whose name starts with *."
     (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 
-;;
-;; Undo Tree
-;;
 ;;
 ;; Undo Tree
 ;;
@@ -1023,8 +973,7 @@ Emacs buffers are those whose name starts with *."
 ; amaranth (non-hydra key presses don't cancel mode)
 (global-set-key
  (kbd "C-M-y")
- (defhydra hydra-move-window-splitter (:color amaranth,
-                                       :hint nil)
+ (defhydra hydra-move-window-splitter (:color amaranth)
    "
 ^Move to Window^    ^Resize Window^    ^Misc^
 ^^^^^^^^---------------------------------------------------------
@@ -1069,8 +1018,7 @@ _q_: quit
 ))
 
 ;; Undo tree common functionality
-(defhydra hydra-undo-tree (:color yellow
-                           :hint nil)
+(defhydra hydra-undo-tree (:color yellow)
   "
   _u_: undo  _r_: redo _s_: save _l_: load
   "
