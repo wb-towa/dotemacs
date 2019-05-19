@@ -1,3 +1,5 @@
+;;; init-packages -- Packaging related things
+
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -14,7 +16,8 @@
 ;;(eval-when-compile
 ;;  (require 'helm-source nil t))
 (defconst wb-packages
-    '(async
+    '(ample-theme
+    async
     ctable
     company
     company-jedi
@@ -22,17 +25,22 @@
     darktooth-theme
     deferred
     epc
+    flatland-theme
     fringe-helper
     flycheck
+    flycheck-swift
     git-gitter
     git-gutter+
     git-gutter-fringe
     git-gutter-fringe+
+    go-mode
+    gruber-darker-theme
     helm
     helm-make
     helm-projectile
     hydra
     htmlize
+    inkpot-theme
     jedi
     jenkins
     js2-mode
@@ -40,6 +48,7 @@
     markdown-mode
     moe-theme
     nyan-mode
+    oldlace-theme
     popup
     powerline
     projectile
@@ -48,7 +57,12 @@
     rainbow-delimiters
     rust-mode
     s
+    soft-stone-theme
+    solarized-theme
     sr-speedbar
+    subatomic-theme
+    sunny-day-theme
+    swift-mode
     tango-plus-theme
     tangotango-theme
     transpose-frame

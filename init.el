@@ -52,7 +52,7 @@
     (*on-mac* "/usr/local/bin/aspell")))
  '(package-selected-packages
    (quote
-    (git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
+    (flycheck-swift swift-mode git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -1121,4 +1121,3 @@ _q_: quit
 ;;(add-hook 'before-save-hook 'whitespace-cleanup)
 (add-hook 'prog-mode-hook
     '(lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-
