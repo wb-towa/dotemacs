@@ -318,6 +318,7 @@ Assumes that the frame is only split into two."
 ;; replace all instances.
 ;; See: https://www.emacswiki.org/emacs/Replace-in-buffer
 (defun replace-in-buffer ()
+  "Replace text in whole buffer / highlighted text."
   (interactive)
   (save-excursion
     (if (equal mark-active nil) (mark-word))
@@ -330,6 +331,15 @@ Assumes that the frame is only split into two."
 
  (global-set-key (kbd "C-z") 'replace-in-buffer)
 
+(require 'hi-lock)
+(defun jpt-toggle-mark-word-at-point ()
+  "Toggle word highlighting."
+  (interactive)
+  (if hi-lock-interactive-patterns
+      (unhighlight-regexp (car (car hi-lock-interactive-patterns)))
+    (highlight-symbol-at-point)))
+
+(global-set-key (kbd "s-.") 'jpt-toggle-mark-word-at-point)
 
 ;;
 ;; Buffers
