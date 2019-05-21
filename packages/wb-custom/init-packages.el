@@ -24,6 +24,7 @@
     dash
     darktooth-theme
     deferred
+    docker
     epc
     flatland-theme
     fringe-helper
