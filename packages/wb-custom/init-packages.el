@@ -1,11 +1,16 @@
+
 ;;; init-packages -- Packaging related things
 
 (require 'package)
 (setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-        ;; ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-        ("gnu" . "http://elpa.gnu.org/packages/")))
-
+      '(("melpa"        . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("gnu"          . "http://elpa.gnu.org/packages/"))
+      package-archive-priorities
+      '(("melpa-stable" . 10)
+        ("melpa"        . 5)
+        ("gnu"          . 0))
+)
 ;; package install location
 (setq package-user-dir
       (format "%s/%s" user-emacs-directory "elpa"))
