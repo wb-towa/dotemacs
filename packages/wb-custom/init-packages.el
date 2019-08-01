@@ -5,9 +5,11 @@
 (setq package-archives
       '(("melpa"        . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("gnu"          . "http://elpa.gnu.org/packages/"))
+        ("gnu"          . "http://elpa.gnu.org/packages/")
+        ("org"          . "https://orgmode.org/elpa/"))
       package-archive-priorities
-      '(("melpa-stable" . 10)
+      '(("org"          . 15)
+        ("melpa-stable" . 10)
         ("melpa"        . 5)
         ("gnu"          . 0))
 )
@@ -55,6 +57,7 @@
     moe-theme
     nyan-mode
     oldlace-theme
+    org
     popup
     powerline
     projectile

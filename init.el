@@ -1,5 +1,5 @@
 ;; wbaer init.el
-;; version 2019.05.18
+;; version 2019.08.01
 
 
 (defconst emacs-d
@@ -52,7 +52,7 @@
     (*on-mac* "/usr/local/bin/aspell")))
  '(package-selected-packages
    (quote
-    (flycheck-swift swift-mode git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
+    (org evil flycheck-swift swift-mode git-gitter yasnippet yaml-mode web-mode undo-tree transpose-frame sr-speedbar s rust-mode rainbow-mode rainbow-delimiters projectile powerline nyan-mode markdown-mode magit js2-mode jenkins jedi htmlize git-gutter-fringe git-gutter-fringe+ flycheck counsel company-jedi))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -306,8 +306,9 @@ Assumes that the frame is only split into two."
              (setq deactivate-mark nil))
     (self-insert-command N)))
 
-(global-set-key ">" 'my-indent-region)
-(global-set-key "<" 'my-unindent-region)
+;; TODO: remove unless something goes awry with evil and it's removed
+;;(global-set-key ">" 'my-indent-region)
+;;(global-set-key "<" 'my-unindent-region)
 
 
 ;; Replace text in whole buffer. The suggested OLD text is either the current region,
@@ -432,39 +433,6 @@ Emacs buffers are those whose name starts with *."
 
 
 ;;
-;; Vim emulated functionality
-;;
-
-(defun vi-open-line-above ()
-    "Insert a newline above the current line and put point at beginning."
-    (interactive)
-    (unless (bolp)
-        (beginning-of-line))
-    (newline)
-    (forward-line -1)
-    (indent-according-to-mode))
-
-(defun vi-open-line-below ()
-    "Insert a newline below the current line and put point at beginning."
-    (interactive)
-    (unless (eolp)
-        (end-of-line))
-    (newline-and-indent))
-
-(defun vi-open-line (&optional abovep)
-    "Insert a newline below the current line and put point at beginning. With a prefix argument,
-    insert a newline above the current line."
-    (interactive "P")
-    (if abovep
-        (vi-open-line-above)
-    (vi-open-line-below)))
-
-
-;; M-o open line below C-M-o open line above
-(define-key global-map (kbd "M-o") 'vi-open-line)
-
-
-;;
 ;; Org Mode
 ;;
 
@@ -478,6 +446,14 @@ Emacs buffers are those whose name starts with *."
 ;; org mode to moinmoin
 (eval-after-load "org" '(require 'ox-moinmoin nil t))
 
+(org-babel-do-load-languages 'org-babel-load-languages
+    '(
+      (shell  . t)
+      (python . t)
+      (perl   . t)
+      (css    . t)
+    )
+)
 
 ;;
 ;; Required Packages
@@ -932,6 +908,9 @@ Emacs buffers are those whose name starts with *."
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 
+(setq undo-tree-visualizer-diff t)
+(setq undo-tree-visualizer-timestamps t)
+
 (setq undo-tree-auto-save-history t
       undo-tree-history-directory-alist `(("." . ,(expand-file-name (format "%s/%s/" user-emacs-directory "undo")))))
 
@@ -1143,3 +1122,12 @@ _q_: quit
 ;;(setenv "DOCKER_HOST" "tcp://10.11.12.13:2376")
 ;;(setenv "DOCKER_CERT_PATH" "/Users/foo/.docker/machine/machines/box")
 ;;(setenv "DOCKER_MACHINE_NAME" "box")
+
+;;
+;; Evil Mode
+;;
+(require 'evil)
+(evil-mode 1)
+
+(provide 'init)
+;;; init.el ends here
