@@ -1,5 +1,5 @@
 ;; wbaer init.el
-;; version 2019.08.01
+;; version 2020.01.26
 
 
 (defconst emacs-d
@@ -519,7 +519,7 @@ Emacs buffers are those whose name starts with *."
 (defpowerline display-time display-time-string)
 
 ;; borrowed from https://github.com/filinep/.emacs.d/blob/master/powerline_tweak.el
-;; todo: tweak more to my liking
+;; TODO: tweak more to my liking
 
 (defun my-powerline-theme ()
   "Setup the default mode-line."
@@ -572,7 +572,6 @@ Emacs buffers are those whose name starts with *."
         (powerline-render rhs)))))))
 
 (my-powerline-theme)
-
 
 
 ;;
@@ -770,12 +769,14 @@ Emacs buffers are those whose name starts with *."
 ;; load modes
 (add-to-list 'auto-mode-alist '("\\.css$" . all-css-modes))
 
+
 ;;
 ;; Rainbow Delimiters Mode
 ;;
 
 ;; Enabled for all programming related modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 
 ;;
 ;; Web-Mode
@@ -800,11 +801,13 @@ Emacs buffers are those whose name starts with *."
 )
 (add-hook 'web-mode-hook 'web-mode-hook)
 
+
 ;;
 ;; Rust Mode
 ;;
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
 
 ;;
 ;; Perl
@@ -1027,6 +1030,7 @@ _q_: quit
 ;; Uncomment if using a view
 ;;(setq jenkins-viewname "<viewname>")
 
+
 ;;
 ;; Magit
 ;;
@@ -1126,6 +1130,7 @@ _q_: quit
 ;;
 ;; Evil Mode
 ;;
+;; TODO: Buggy - need to either revert or investigate where it goes wrong
 (require 'evil)
 (evil-mode 1)
 
